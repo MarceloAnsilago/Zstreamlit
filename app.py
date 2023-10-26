@@ -5,7 +5,7 @@ import time
 import os
 import urllib.parse
 import requests
-import tkinter as tk
+import tkinter as tkpip
 import datetime
 import random
 from tkinter import filedialog
