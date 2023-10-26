@@ -5,7 +5,7 @@ import time
 import os
 import urllib.parse
 import requests
-import tkinter as tkpip
+import tkinter as tk
 import datetime
 import random
 from tkinter import filedialog
@@ -191,7 +191,7 @@ with st.form("Meu Formulário"):
              
 ##################################################################################################
 ##################################################################################################
-st.header('Definir Mensagens', divider='rainbow')     
+# st.header('Definir Mensagens', divider='rainbow')     
 
 # Crie um radio box para selecionar o tipo de mensagem
 tipo_mensagem = st.radio("Selecione o tipo de mensagem:", ["Mensagem genérica", "Mensagem, Sim ou Não"])
@@ -265,9 +265,9 @@ def ReponderMensagem():
 
         bolinha = driver.find_element(By.CLASS_NAME, bolinha_notificacao)
         bolinha = driver.find_elements(By.CLASS_NAME, bolinha_notificacao)
-        print("-------------------------------------------------------------")
-        print("Encontramos uma nova bolinha")
-        print("-------------------------------------------------------------")
+        # print("-------------------------------------------------------------")
+        # print("Encontramos uma nova bolinha")
+        # print("-------------------------------------------------------------")
         clica_bolinha = bolinha[-1]
         acao_bolinha = webdriver.common.action_chains.ActionChains(driver)
         acao_bolinha.move_to_element_with_offset(clica_bolinha, 0, -20)
@@ -291,8 +291,8 @@ def ReponderMensagem():
         todas_as_msg_texto = [e.text for e in todas_as_msg]
         msg = todas_as_msg_texto[-1]
         
-        print(msg)
-        print(telefone_final)
+        # print(msg)
+        # print(telefone_final)
 ########################################################################################################################
         # Verifique se 'telefone_final' está presente na coluna 'Telefone'
         if (df['Telefone'] == telefone_final).any():
@@ -300,9 +300,9 @@ def ReponderMensagem():
             indice_linha = df.index[df['Telefone'] == telefone_final].tolist()[0]
             # Verifique o valor da coluna 'Status' na mesma linha
             status = df.at[indice_linha, 'Status']
-            print("-------------------------------------------------------------")
-            print("encontramos o status ",status)
-            print("-------------------------------------------------------------")
+            # print("-------------------------------------------------------------")
+            # print("encontramos o status ",status)
+            # print("-------------------------------------------------------------")
             if status == 'Aguardando Resposta':
                 if msg == '1' or msg.lower() == 'sim':
                     resposta = mensagemSIM
@@ -334,25 +334,25 @@ def ReponderMensagem():
         if df[df['Status'] == "Fila de envio"].shape[0] > 0:
             exibir_mensagem_personalizada("Sem novas mensagens, iniciando um novo disparo")
             contagem_regressiva_inicial_final(10, 15, 'para novo disparo')
-            print("Sem novas mensagens, iniciando novo disparo.")
+            # print("Sem novas mensagens, iniciando novo disparo.")
             contato = str(df[df['Status'] == "Fila de envio"].iloc[0]['Telefone']) 
             Nome =  str(df[df['Telefone'] == contato].iloc[0]['Nome']) 
             mensagem = mensagemPergunta
             mensagem = mensagem.replace('-&nome', Nome) 
             mensagem = mensagem.replace('-&numero', contato) 
             criterio = "Aguardando Resposta"
-            print("Número da coluna 'Telefone' onde 'Status' é igual a 0:")
+            # print("Número da coluna 'Telefone' onde 'Status' é igual a 0:")
             exibir_mensagem_personalizada("Enviando nova mensagen")
             disparar(contato, mensagem, criterio)
             df.to_excel(caminho_do_arquivo, index=False) 
             atualizar_tabela()
-            print('enviando novas mensagens')
+            # print('enviando novas mensagens')
             time.sleep(3)
         else:
             # No rows with 'Fila de envio' in the 'Status' column
-            print("-------------------------------------------------------------")
-            print("Fila de envios completa")
-            print("-------------------------------------------------------------")
+            # print("-------------------------------------------------------------")
+            # print("Fila de envios completa")
+            # print("-------------------------------------------------------------")
             exibir_mensagem_personalizada("Fila de envio completa, aguardando novas mensagens")
 
 def disparar(contato, mensagem, criterio):
@@ -412,9 +412,9 @@ with st.expander("Iniciar disparos"):
                     # with st.spinner('Iniciando um novo Disparo...'):
                     ReponderMensagem()   
                    
-                    print("-------------------------------------------------------------")
-                    print("Aguardando 15 segundos pra sair do código")
-                    print("-------------------------------------------------------------")
+                    # print("-------------------------------------------------------------")
+                    # print("Aguardando 15 segundos pra sair do código")
+                    # print("-------------------------------------------------------------")
                 elif tipo_mensagem == "Mensagem genérica":
                                # Encontre o valor da coluna "numero" onde o primeiro "status" igual a 0
                     contato = str(df[df['Status'] == "Fila de envio"].iloc[0]['Telefone']) 
@@ -426,7 +426,7 @@ with st.expander("Iniciar disparos"):
                     print("Enviando")
                     
                     criterio = "Envio Completo"
-                    print("Número da coluna 'Telefone' onde 'Status' é igual a 0:", contato)
+                    # print("Número da coluna 'Telefone' onde 'Status' é igual a 0:", contato)
                     disparar(contato , mensagem, criterio)
                     df.to_excel(caminho_do_arquivo, index=False) 
                     time.sleep(1)  
